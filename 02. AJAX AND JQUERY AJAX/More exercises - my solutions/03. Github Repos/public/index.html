@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <title>My site</title>
+</head>
+
+<body>
+    <input type="text" id="username" value="k1r1L" />
+    <button onclick="loadRepos()">Load Repos</button>
+    <ul id="repos"></ul>
+
+    <script>
+        
+        function loadRepos() {
+            let username=$("#username").val();
+            let url = `https://api.github.com/users/${username}/repos`;
+            
+            $.ajax({
+                method: "GET",
+                url,
+                success: onLoadSuccess,
+                error: (err)=>(console.log(err)),
+            })
+        }
+
+        function onLoadSuccess(data) {
+            data.forEach(x => {
+                let $li=$(`<li><a target="_blank" href='" + x.html_url + "'>${x.name}</a></li>`);
+                $('#repos').append($li);
+            });
+        }
+
+    </script>
+</body>
+
+</html>

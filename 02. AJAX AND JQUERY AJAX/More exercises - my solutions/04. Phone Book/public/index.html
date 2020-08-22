@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+        body {
+            font-family: "Open Sans", serif;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Phonebook</h1>
+    <ul id="phonebook"></ul>
+    <button id="btnLoad">Load</button>
+
+    <h2>Create Contact</h2>
+    Person: <input type="text" id="person" />
+    <br>
+    Phone: <input type="text" id="phone" />
+    <br>
+    <button id="btnCreate">Create</button>
+
+    <script>
+        const baseUrl = "'https://phonebook-nakov.firebaseio.com/phonebook.json";
+        $('#btnLoad').click(phoneBookLoad);
+        $('#btnCreate').click(addContactToPhonebook);
+
+        function phoneBookLoad() {
+            $.ajax({
+                method: "GET",
+                url: baseUrl,
+                success: onContactsLoad,
+                error: (err) => console.log(err)
+            })
+        }
+
+        function onContactsLoad(data) {
+            $('#phonebook').empty();
+        
+            Object.entries(data).forEach(c => {
+                if (c) {
+                    $li = $(`<li id="${c[0]}">${c[1].Person}: ${c[1].Phone}</li>`);
+                    $button = $(`<button>Delete</button>`);
+                    $button.click(deleteContact);
+                    $li.append($button);
+                    $('#phonebook').append($li);
+                }
+            });
+        }
+
+        function addContactToPhonebook() {
+            person = $('#person').val();
+            phone = $('#phone').val();
+
+            $.ajax({
+                method: "POST",
+                url: baseUrl,
+                data: JSON.stringify({
+                    Person: person,
+                    Phone: phone
+                }),
+                success: (res) => $('#btnLoad').click()
+            })
+        }
+
+        function deleteContact() {
+            $parent = $(this).parent();
+            let text=$parent.text();
+            let idToDelete=$(`#phonebook li:contains(${text})`).attr('id');
+            let urlToDelete=`https://phonebook-81969.firebaseio.com/${idToDelete}.json`;
+            $.ajax({
+                method: "DELETE",
+                url: urlToDelete,
+                success: (res) => $('#btnLoad').click()
+            })
+        }
+
+    </script>
+</body>
+
+</html>

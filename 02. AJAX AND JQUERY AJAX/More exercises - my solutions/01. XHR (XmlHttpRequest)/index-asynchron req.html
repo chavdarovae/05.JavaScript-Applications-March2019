@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="loadSwapi()">Load Repos</button>
+    <div id="res"></div>
+
+    <script>
+        function loadSwapi() {
+            let req = new XMLHttpRequest();
+            let id=4;
+            let url = `https://swapi.co/api/people/${id}`;
+            req.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let data = JSON.parse(this.responseText);
+                    console.log(data.name);
+                }
+            }
+            req.open("GET", url, true);
+            req.send();
+            console.log('sled');
+        }
+    </script>
+</body>
+
+</html>

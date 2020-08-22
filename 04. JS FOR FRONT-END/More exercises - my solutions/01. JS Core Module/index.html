@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <title>Document</title>
+  <style>
+    .wrapper {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper container mt-3">
+    <h1>JS Core Module</h1>
+    <h2>JS Essentials</h2>
+    <a class="btn btn-success" data-toggle="collapse" href="#js-essentials-details" aria-expanded="false"
+      aria-controls="collapseExample">
+      Details
+    </a>
+    <div class="collapse mt-3" id="js-essentials-details">
+      <div class="card card-body">
+        В курса "JS Essentials" ще разгледате основния синтаксис на езика JavaScript. Изучават се типовете данни,
+        оператори, изрази, условни конструкции, цикли и работа с функции. Ще се запознаете с DOM дървото и ще започнете
+        да работите с JavaScript в браузъра. Курсът е силно насочен към практиката, с огромен брой упражнения в клас и
+        практически изпит. Всички задачи от упражненията и изпитите се оценяват автоматизирано с онлайн Judge система.
+        Оценяването в курса е на базата на предадени домашни и практически изпит.
+      </div>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#confirmation" data-course="JS Essentials">Apply</button>
+    </div>
+    <h2>JS Addvanced</h2>
+    <a class="btn btn-success" data-toggle="collapse" href="#js-addvanced-details" aria-expanded="false"
+      aria-controls="collapseExample">
+      Details
+    </a>
+    <div class="collapse mt-3" id="js-addvanced-details">
+      <div class="card card-body">
+        В курса "JS Advanced" ще надградите знанията си по JavaScript, като изучите по-сложните концепции като IFFE,
+        clousure, objects и classes. Този курс ще развие алгоритмичното ви мислене и ще надгради знанията ви за DOM
+        дървото. Ще се научите да манипулирате DOM дървото, да добавяте и триете елементи от него. Освен това, ще се
+        научите как да тествате кода си използвайки библиотеки за Unit тестване. Ще разгледате OOP частта на JavaScript
+        (inheritance, prototypes and prototypes chains). Оценяването в курса е на базата на предадени домашни и
+        практически изпит.
+      </div>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#confirmation" data-course="JS Addvanced">Apply</button>
+    </div>
+    <h2>JS Applications</h2>
+    <a class="btn btn-success" data-toggle="collapse" href="#js-application-details" aria-expanded="false"
+      aria-controls="collapseExample">
+      Details
+    </a>
+    <div class="collapse mt-3" id="js-application-details">
+      <div class="card card-body">
+        В курса "JS Apps" ще научите какво сa HTTP заявки и как да ги използвате. Ще се запознаете с REST Services,
+        какво са базите данни и как да работите с тях, какво означава асинхронен код, какво представляват Templating и
+        Routing. Ще разберете каква е архитектурата на едно приложение и как да структурирате правилно апликациите си.
+        На края на курса ще създадете собствен Single Page Application. Оценяването в курса е на базата на предадени
+        домашни и практически изпит.
+      </div>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#confirmation" data-course="JS Application">Apply</button>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $('#confirmation').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var course = button.data('course') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.modal-title').text(`Apply for the ${course} course`)
+      modal.find('.modal-body').text(`Are you sure you want to apply for ${course} course?`)
+    })
+  </script>
+</body>
+
+</html>
